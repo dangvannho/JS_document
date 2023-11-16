@@ -162,7 +162,6 @@ Toán tử Nullish Coalescing là toán tử hai ngôi a ?? b, với định ngh
 
 ## Copy Object trong JS
 
-- Copy nông (shallow copy) sử dụng hàm Object.assign() hoặc cú pháp spread (...)
 - vd:
   ```
   let p1 = { x: 1, y: 2 };
@@ -176,3 +175,238 @@ Toán tử Nullish Coalescing là toán tử hai ngôi a ?? b, với định ngh
   let p2 = { ...p1 };
   console.log(p2) // {x: 1, y: 2}
   ```
+
+## Hàm đệ quy trong Javascript ?
+
+**Hàm đệ quy** trong JavaScript chính là một hàm tự gọi lại chính nó.
+
+**Hàm đệ quy** hai thành phần đặc trưng:
+
+- **Phần cơ sở:** điều kiện để thoát đệ quy.
+- **Phần đệ quy:** gọi lại chính nó.
+
+**vd:**
+
+```
+function a(dem) {
+  if(dem<=0) {
+    return;
+  }
+  conselog("Javascript")
+  return a(dem-1)
+}
+```
+
+**Đệ quy** hoạt động tương tự vòng **for** . Ở ví dụ trên ta có thể dùng vòng for để thực hiện  
+**vd:**
+
+```
+for(let i=0;i<5;i++){
+  console.log("Javascript)
+}
+
+```
+
+So sánh giữa **đệ quy** và **vòng lặp**:
+
+- Sử dụng **vòng lặp** thì sẽ tối ưu thời gian, không gian bộ nhớ
+- Sử dụng **đệ quy** thì ngắn ngọn, dễ bảo trì
+
+## Dấu ba chấm trong Javascript
+
+Cú pháp dấu 3 chấm có 2 loại:
+
+- Lấy danh sách các tham số còn lại trong hàm ( luôn đặt ở cuối danh sách tham số.)
+- Hoặc là cú pháp spread để tách mảng thành danh sách các tham số (có thể đặt ở bất kỳ đâu trong danh sách các tham số.)
+
+### Lấy danh sách các tham số còn lại trong hàm (...args)
+
+**Vd:**
+
+```
+
+function ts(a,b,...agr) {
+  console.log(a,b)
+  console.log(agr)
+}
+ts(1,2,3,4,5)
+
+```
+
+**Lưu ý:** Dấu 3 chấm phải là tham số cuối cùng
+
+**Vd:**
+
+```
+function func(arg1, ...rest, arg2) {
+      //
+    }
+     // Uncaught SyntaxError: Rest parameter must be last formal parameter
+```
+
+## Đối tượng arguments
+
+Trong hàm có một đối tượng đặc biệt là arguments. Đây là đối tượng kiểu array-like và iterable chứa tất cả các tham số của hàm xác định bởi chỉ số.
+**Vd:**
+
+```
+function sumAll() {
+  for (let i = 0; i < arguments.length; i++) {
+    console.log(arguments[i]);
+  }
+}
+sumAll(1, 2, 3, 4, 5); // 1 2 3 4 5
+
+```
+
+**Lưu ý:**
+
+- **arguments** là array-like nên bạn không thể sử dụng các phương thức của mảng như arguments.map(...).
+- **arguments** luôn chứa tất cả các tham số của hàm. Bạn không thể chỉ lưu một số tham số như cú pháp dấu ba chấm được.
+- Arrow function không có đối tượng **arguments.**
+
+## Cú pháp spread là gì?
+
+Cú pháp spread cũng sử dụng ba dấu chấm giống như cú pháp lấy các tham số còn lại của hàm như trên, nhưng cách thực hiện ngược lại.
+
+Khi biến arr được sử dụng trong lời gọi hàm, mảng arr được phân tách ra thành danh sách các tham số hàm.
+
+**Vd:**
+
+```
+let arr = [4, 7, 5];
+console.log(Math.max(...arr)); // 7
+
+let arr1 = [3, 5, 1];
+let arr2 = [4, 6, 2];
+console.log(Math.max(5, ...arr1, 10, ...arr2)); // 10
+```
+
+## Ứng dụng cú pháp spread để ghép mảng
+
+**Vd:**
+
+```
+let arr1 = [3, 5, 1];
+let arr2 = [4, 6, 2];
+let arr = [...arr1, ...arr2];
+console.log(arr); // (6) [3, 5, 1, 4, 6, 2]
+```
+
+## Ứng dụng cú pháp spread để copy mảng và object
+
+**Vd:**
+
+```
+let arr = [1, 2, 3];
+let arrCopy = [...arr];
+
+let obj = { a: 1, b: 2, c: 3 };
+let objCopy = { ...obj };
+```
+
+## Hàm setTimeout trong JavaScript
+
+**Hàm setTimeout** trong JavaScript cho phép thực hiện hàm func một lần sau một khoảng thời gian delay với các tham số truyền vào là args.
+
+**Cú pháp:**
+
+```
+let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)
+```
+
+**Vd1:**
+
+```
+function sayHi() {
+  console.log("Hello");
+}
+setTimeout(sayHi, 1000); // Hello
+
+```
+
+**Vd2:**
+
+```
+function sayHi(message, who) {
+  console.log(`${message}, ${who}`);
+}
+setTimeout(sayHi, 1000, "Hello", "Alex"); // Hello, Alex
+```
+
+**Lưu ý:** Tham số đầu tiên là hàm, chứ không phải kết quả của việc gọi hàm
+
+**Vd:**
+
+```
+setTimeout(sayHi(), 1000);
+// code sẽ không thực hiện sau 1s
+```
+
+## Hàm setTimeout lồng nhau
+
+**Vd:**
+
+```
+      let timerId = setTimeout(function sayHi() {
+        console.log("Hello");
+        timerId = setTimeout(sayHi, 2000); // (*)
+      }, 2000);
+```
+
+## Hàm setTimeout với thời gian delay bằng 0
+
+Hành động sẽ được thực hiện ngay khi code luồng chính thực hiện xong
+
+**Vd:**
+
+```
+setTimeout(() => console.log("World"));
+console.log("Hello");
+```
+
+## Xóa hành động với clearTimeout
+
+**clearTimeout** dùng để huỷ bỏ hành động của hàm setTimeout
+
+**Vd:**
+
+```
+    let timeID = setTimeout(() => {
+      console.log("hellooo");
+    }, 2000);
+    clearTimeout(timeID);
+    console.log(timeID);
+```
+
+## Hàm setInterval trong JavaScript
+
+Hàm **setInterval** cũng tương tự như hàm setTimeout, nhưng hàm func được thực hiện sau mỗi lần delay.
+**Cú pháp:**
+
+```
+let timerId = setInterval(func|code, [delay], [arg1], [arg2], ...)
+```
+
+**Vd:**
+
+```
+    let timeID = setInterval(() => {
+      console.log("hellooo");
+    }, 2000);
+    console.log(timeID);
+```
+
+## Xóa hành động với clearInterval
+
+**clearInterval** dùng để huỷ bỏ hành động của hàm setInterval
+
+**Vd:**
+
+```
+let timeID = setInterval(() => {
+      console.log("hellooo");
+    }, 2000);
+    console.log(timeID);
+    clearInterval(timeID);
+```
