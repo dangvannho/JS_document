@@ -262,7 +262,6 @@ sumAll(1, 2, 3, 4, 5); // 1 2 3 4 5
 **Lưu ý:**
 
 - **arguments** là array-like nên bạn không thể sử dụng các phương thức của mảng như arguments.map(...).
-- **arguments** luôn chứa tất cả các tham số của hàm. Bạn không thể chỉ lưu một số tham số như cú pháp dấu ba chấm được.
 - Arrow function không có đối tượng **arguments.**
 
 ## Cú pháp spread là gì?
